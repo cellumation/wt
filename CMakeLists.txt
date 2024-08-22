@@ -25,7 +25,7 @@ ENDIF(NOT SHARED_LIBS)
 #
 # Various things that must be configured by the user or packager ...
 #
-OPTION(BUILD_EXAMPLES "Build examples" ON)
+OPTION(BUILD_EXAMPLES "Build examples" OFF)
 OPTION(INSTALL_DOCUMENTATION "Install documentation (tutorials and reference)" OFF)
 OPTION(INSTALL_EXAMPLES "Install examples (binaries and source)" OFF)
 OPTION(INSTALL_RESOURCES "Install resources directory" ON)
@@ -205,7 +205,7 @@ OPTION(DEBUG "Support for debugging, must be enabled also in wt_config.xml" OFF)
 IF(CYGWIN)
   OPTION(BUILD_TESTS "Build Wt tests" OFF)
 ELSE(CYGWIN)
-  OPTION(BUILD_TESTS "Build Wt tests" ON)
+  OPTION(BUILD_TESTS "Build Wt tests" OFF)
 ENDIF(CYGWIN)
 
 OPTION(BUILD_FUZZ "Build Wt fuzzers" OFF)
