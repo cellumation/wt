@@ -45,6 +45,15 @@ IF(ENABLE_SQLITE)
     ${Sqlite3_SRCS}
     )
 
+  # FIX: Suppress warnings from GCC/Clang
+  if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(wtdbosqlite3 PRIVATE
+      $<$<COMPILE_LANGUAGE:C>:-Wno-discarded-qualifiers>
+      $<$<COMPILE_LANGUAGE:C>:-Wno-return-local-addr>
+    )
+  endif()
+  # END FIX
+
   if(NOT APPLE OR SHARED_LIBS)
     SET_PROPERTY(TARGET wtdbosqlite3 PROPERTY C_VISIBILITY_PRESET hidden)
     SET_PROPERTY(TARGET wtdbosqlite3 PROPERTY CXX_VISIBILITY_PRESET hidden)
@@ -112,7 +121,7 @@ IF(ENABLE_POSTGRES AND POSTGRES_FOUND)
     IF(SHARED_LIBS)
       CONFIGURE_FILE(wtdbopostgres-version.rc.in
                      ${CMAKE_CURRENT_BINARY_DIR}/wtdbopostgres-version.rc)
-      SET(postgres_SRCS ${postgres_SRCS} 
+      SET(postgres_SRCS ${postgres_SRCS}
           ${CMAKE_CURRENT_BINARY_DIR}/wtdbopostgres-version.rc)
     ENDIF(SHARED_LIBS)
   ENDIF(WIN32)
@@ -212,7 +221,7 @@ IF(ENABLE_FIREBIRD AND FIREBIRD_FOUND)
     IF(SHARED_LIBS)
       CONFIGURE_FILE(wtdbofirebird-version.rc.in
                      ${CMAKE_CURRENT_BINARY_DIR}/wtdbofirebird-version.rc)
-      SET(firebird_SRCS ${firebird_SRCS} 
+      SET(firebird_SRCS ${firebird_SRCS}
           ${CMAKE_CURRENT_BINARY_DIR}/wtdbofirebird-version.rc)
     ENDIF(SHARED_LIBS)
   ENDIF(WIN32)
@@ -292,7 +301,7 @@ IF(ENABLE_MYSQL AND MYSQL_FOUND)
     IF(SHARED_LIBS)
       CONFIGURE_FILE(wtdbomysql-version.rc.in
                      ${CMAKE_CURRENT_BINARY_DIR}/wtdbomysql-version.rc)
-      SET(mysql_SRCS ${mysql_SRCS} 
+      SET(mysql_SRCS ${mysql_SRCS}
           ${CMAKE_CURRENT_BINARY_DIR}/wtdbomysql-version.rc)
     ENDIF(SHARED_LIBS)
   ENDIF(WIN32)
